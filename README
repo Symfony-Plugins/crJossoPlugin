@@ -17,6 +17,12 @@ An other additional feature is that once a user is authenticated
 in one of the applications using JOSSO, you will be automatically 
 authenticated in the others applications
 
+## Subversion download ##
+You can download the latest version of this plugin from:
+
+     http://svn.symfony-project.com/plugins/crJossoPlugin/trunk/
+
+
 ## Configuration ##
 
 * In your app.yml add the following configuration lines
@@ -46,6 +52,8 @@ Example
           security_check_module: crJossoAuth
           security_check_action: securityCheck
 
+
+
   
 * In your settings.yml enable crJossoAuth module and change 
 
@@ -54,6 +62,8 @@ Example
       enabled_modules:       [default, crJossoAuth, .... ]
       login_module:           crJossoAuth
       login_action:           signin
+
+
 
 * Add the following routing rules in routing.yml:
 
@@ -67,6 +77,20 @@ Example
         url:   /logout/
         param: { module: crJossoAuth, action: signout }
 
+
+
+* Change the security filter: filters.yml
+
+Example
+
+     rendering: ~
+     security:
+       class: crJossoSecurityFilter
+     
+     ...
+
+
+
 * Change the parent class of myUser.class.php:
 
 Example
@@ -74,6 +98,8 @@ Example
     class myUser extends crJossoUser
     {
     }
+
+
 
 * Remember that it is important to change the session_name in factories.yml
 
@@ -85,6 +111,8 @@ Example
           param:
             session_name: josso-test
 
+
+
 That's all
 
 ##TODO##
@@ -94,4 +122,3 @@ That's all
 
 ##Author##
 Lic. Christian A. Rodriguez <car@cespi.unlp.edu.ar>
-
