@@ -1,0 +1,97 @@
+# crJossoPlugin #
+
+## Introduction ##
+This plugin provides SSO authentication and authorization for symfony 
+applications based in [JOSSO](http://www.josso.org "JOSSO").
+
+SSO provided by JOSSO allow developers to concentrate in business logic 
+delegating all authentication and authorization work to JOSSO Identity 
+Manager.
+
+The plugin installation is as simply as described here.
+
+The power provided by JOSSO will enable your application to 
+be authenticating against: LDAP, files, Active Directory, any Database, etc.
+
+An other additional feature is that once a user is authenticated 
+in one of the applications using JOSSO, you will be automatically 
+authenticated in the others applications
+
+## Configuration ##
+
+* In your app.yml add the following configuration lines
+    * Is important that you know the Login URL of JOSSO
+    * Is important that you know the Logout URL of JOSSO
+    * JOSSO Web Service Server URL
+
+Example
+
+      all:
+        .....
+        cr_josso_plugin:
+        # JOSSO Server settings
+          gateway_login_url: http://localhost:8080/josso/signon/login.do    
+          gateway_logout_url: http://localhost:8080/josso/signon/logout.do
+          service_endpoint_url: http://localhost:8080/
+        # Do you need a proxy
+          proxy_host: 
+          proxy_port:
+          proxy_username:
+          proxy_password:
+        # Where do you want the plugin redirects you when login or logout
+          success_signin_url: @homepage
+          success_signout_url: @homepage
+
+        # This module actions are if you want to redefine them. Do not recomended 
+          security_check_module: crJossoAuth
+          security_check_action: securityCheck
+
+  
+* In your settings.yml enable crJossoAuth module and change 
+
+Example
+
+      enabled_modules:       [default, crJossoAuth, .... ]
+      login_module:           crJossoAuth
+      login_action:           signin
+
+* Add the following routing rules in routing.yml:
+
+Example
+
+      cr_josso_signin:
+        url:   /login/
+        param: { module: crJossoAuth, action: signin }
+
+      cr_josso_signout:
+        url:   /logout/
+        param: { module: crJossoAuth, action: signout }
+
+* Change the parent class of myUser.class.php:
+
+Example
+
+    class myUser extends crJossoUser
+    {
+    }
+
+* Remember that it is important to change the session_name in factories.yml
+
+Example
+
+      all:
+        storage:
+          class: sfSessionStorage
+          param:
+            session_name: josso-test
+
+That's all
+
+##TODO##
+* Lot of testing
+* Save requesting URL whe session is not valid so when user is logged in we
+  can redirect to the requested url
+
+##Author##
+Lic. Christian A. Rodriguez <car@cespi.unlp.edu.ar>
+

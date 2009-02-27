@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.6" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>crJossoPlugin</name>
+ <channel>pear.symfony-project.com</channel>
+ <summary>SSO authentication and authorization for symfony based in JOSSO http://www.josso.org"</summary> 
+<description>
+  SSO provided by JOSSO allow developers to concentrate in business logic
+  delegating all authentication and authorization work to JOSSO Identity
+  Manager.
+
+  The power provided by JOSSO will enable your application to
+  be authenticating against: LDAP, files, Active Directory, any Database, etc.
+
+  An other additional feature is that once a user is authenticated
+  in one of the applications using JOSSO, you will be automatically
+  authenticated in the others applications
+</description>
+ <lead>
+  <name>Christian A. Rodriguez</name>
+  <user>chrodriguez</user>
+  <email>car@cespi.unlp.edu.ar</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-02-27</date>
+ <time>20:54:35</time>
+ <version>
+  <release>0.1.0</release>
+  <api>1.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.symfony-project.org/license">MIT license</license>
+ <notes>-</notes>
+ <contents>
+  <dir name="/">
+   <file role="data" name="README" />
+   <file role="data" name="LICENSE" />
+   <dir name="lib">
+    <dir name="user">
+     <!-- subclass of sfBasicSecurityUser -->
+     <file role="data" name="crJossoUser.class.php" />
+    </dir>
+    <file role="data" name="crJossoSecurityFilter.class.php" />
+    <file role="data" name="JossoAgent.class.php" />
+    <file role="data" name="JossoRole.class.php" />
+    <file role="data" name="JossoUser.class.php" />
+   </dir>
+   <dir name="modules">
+    <dir name="crJossoAuth">
+     <file role="data" name="actions/actions.class.php" />
+     <file role="data" name="lib/BasecrJossoAuthActions.class.php" />
+    </dir>
+   </dir>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.1</min>
+   </pearinstaller>
+   <package>
+    <name>symfony</name>
+    <channel>pear.symfony-project.com</channel>
+    <min>1.1.0</min>
+    <max>1.2.0</max>
+    <exclude>1.2.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+    <version>
+      <release>0.1.0</release>
+      <api>1.1.0</api>
+    </version>
+    <stability>
+     <release>beta</release>
+     <api>beta</api>
+    </stability>
+    <license uri="http://www.symfony-project.org/license">MIT license</license>
+    <date>2009-02-27</date>
+    <license>MIT</license>
+    <notes>
+      * First version
+    </notes>
+  </release>
+ </changelog>
+</package>
