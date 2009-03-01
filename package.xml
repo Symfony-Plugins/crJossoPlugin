@@ -21,10 +21,10 @@
   <email>car@cespi.unlp.edu.ar</email>
   <active>yes</active>
  </lead>
- <date>2009-02-27</date>
- <time>20:54:35</time>
+ <date>2009-03-01</date>
+ <time>02:30:00</time>
  <version>
-  <release>0.1.1</release>
+  <release>0.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -104,6 +104,22 @@
     <license>MIT</license>
     <notes>
       * Complete README file with required configuration directives
+    </notes>
+  </release>
+  <release>
+    <version>
+      <release>0.1.2</release>
+      <api>1.1.0</api>
+    </version>
+    <stability>
+     <release>beta</release>
+     <api>beta</api>
+    </stability>
+    <license uri="http://www.symfony-project.org/license">MIT license</license>
+    <date>2009-02-27</date>
+    <license>MIT</license>
+    <notes>
+      * Solved problem when SSO session change. It happends when other SSO enabled application logout and the login with other user/roles 
     </notes>
   </release>
  </changelog>

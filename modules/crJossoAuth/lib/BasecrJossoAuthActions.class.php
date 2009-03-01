@@ -21,7 +21,7 @@ class BasecrJossoAuthActions extends sfActions
     $agent=JossoAgent::getNewInstance();
     $josso_user=$agent->getUserInSession();
     if (!is_null($josso_user)){
-      $this->getUser()->signIn($josso_user);
+      $this->getUser()->signIn($agent->accessSession());
       $this->redirect('@homepage');
     }else{
       $this->forwardToLoginAction();

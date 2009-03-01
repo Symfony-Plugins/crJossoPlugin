@@ -8,12 +8,6 @@
 
 class crJossoUser extends sfBasicSecurityUser {
   
-	/**
-	 * User instance of JossoUser
-	 * @var JossoUser
-	 * @access private
-	 */
-  private $user=null;
 
 	/**
 	* Implements the actionless of user signin, populating current object
@@ -21,13 +15,26 @@ class crJossoUser extends sfBasicSecurityUser {
 	*
 	* @access public
   *
-	* @param    JossoUser $user
+	* @param    string $aSession SSO Session ID
 	*/
-  public function signIn(JossoUser $user)
+  public function signIn($aSession)
   {
+    $this->setAttribute('crJossoPluginSessionId',$aSession);
     $this->setAuthenticated(true);
-    $this->user=$user;
     $this->loadJossoCredentials();
+  }
+
+
+	/**
+	* Checks if the SSO Session ID has changed with our own session
+	*
+	* @return boolean
+  *
+	* @access public
+	*/
+  public function haveToRelogin($aSession)
+  {
+    return $aSession!=$this->getAttribute('crJossoPluginSessionId','-1');
   }
 
 	/**
@@ -39,17 +46,12 @@ class crJossoUser extends sfBasicSecurityUser {
 	*/
   public function getJossoUser()
   {
-    if (is_null($this->user))
-    {
-      $agent=JossoAgent::getNewInstance();
-      try{
-        $this->signin($agent->getUserInSession());
-      }catch(SoapFault $e){
-      }
-      if (!$this->user)
-        $this->signOut();
+    $agent=JossoAgent::getNewInstance();
+    try{
+      return $agent->getUserInSession();
+    }catch(SoapFault $e){
+      return null;
     }
-    return $this->user;
   }
 
 	/**
@@ -60,7 +62,6 @@ class crJossoUser extends sfBasicSecurityUser {
   public function signOut()
   {
     $this->setAuthenticated(false);
-    $this->user=null;
   }
 
 	/**
@@ -71,8 +72,9 @@ class crJossoUser extends sfBasicSecurityUser {
 	*/
   protected function loadJossoCredentials()
   {
-    if (is_null($this->user))return;
-    foreach($this->user->getRoles() as $role){
+    $user=$this->getJossoUser();
+    if (is_null($user))return;
+    foreach($user->getRoles() as $role){
       $this->addCredential($role->getName());
     }
   }

@@ -26,13 +26,19 @@ class crJossoSecurityFilter extends sfBasicSecurityFilter
       $filterChain->execute();
       return;
     }else{
-      //Check if user authenticated is also authenticated in SSO Identity Manager
-      if ($this->context->getUser()->isAuthenticated()&&is_null($aSession))
+      //Check if user authenticated 
+      if ($this->context->getUser()->isAuthenticated())
       {
-          // the user is not authenticated against SSO Identity Manager...
+        // if it is not authenticated in SSO Identity Manager then force login
+        // or
+        // if shall we relogin because SSO Session changed
+        if (  is_null($aSession)  ||
+              $this->context->getUser()->haveToRelogin($aSession)
+            ){
           $this->context->getUser()->setAuthenticated(false);
           // Then we need to relogin on JOSSO Server
           $this->forwardToLoginAction();
+        }
       }
 
     }
