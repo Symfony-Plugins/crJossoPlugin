@@ -65,18 +65,19 @@ Example
 
 
 
-* Add the following routing rules in routing.yml:
+* Prepend the following routing rules in routing.yml:
 
 Example
 
       cr_josso_signin:
-        url:   /login/
+        url:   /login
         param: { module: crJossoAuth, action: signin }
 
       cr_josso_signout:
-        url:   /logout/
+        url:   /logout
         param: { module: crJossoAuth, action: signout }
 
+      ....
 
 
 * Change the security filter: filters.yml
@@ -116,9 +117,9 @@ Example
 That's all
 
 ##TODO##
-* Lot of testing
-* Save requesting URL whe session is not valid so when user is logged in we
-  can redirect to the requested url
+* Test timeout issues. Diferences between PHP and Java session management
+* Test accessing secured action and saving requesting URL so request is redirected on JOSSO login
+  
 
 ##Author##
 Lic. Christian A. Rodriguez <car@cespi.unlp.edu.ar>
