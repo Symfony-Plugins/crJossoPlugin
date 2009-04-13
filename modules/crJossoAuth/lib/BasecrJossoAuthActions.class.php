@@ -22,6 +22,8 @@ class BasecrJossoAuthActions extends sfActions
     $josso_user=$agent->getUserInSession();
     if (!is_null($josso_user)){
       $this->getUser()->signIn($agent->accessSession());
+      $original_url=$this->getUser()->getAttribute('JOSSO_ORIGINAL_URL');
+      if (!is_null($original_url)) $this->redirect($original_url);
       $this->redirect('@homepage');
     }else{
       $this->forwardToLoginAction();
@@ -91,7 +93,8 @@ class BasecrJossoAuthActions extends sfActions
   {
     sfLoader::loadHelpers(array('Url'));
 
-    //$this->getUser()->setAttribute('JOSSO_ORIGINAL_URL',$currentUrl);
+    $uri=$this->getRequest()->getUri();
+    $this->getUser()->setAttribute('JOSSO_ORIGINAL_URL',$uri);
     $agent=JossoAgent::getNewInstance();
     $securityCheckUrl=url_for(
             sfConfig::get('app_cr_josso_plugin_security_check_module')."/".
