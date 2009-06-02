@@ -219,6 +219,7 @@ class JossoAgent  {
     // Build array of roles
     $i = 0;
     $result = $response->roles;
+    $roles=array();
 
     foreach($result as $roledata) {
       $roles[$i] = $this->newRole($roledata);
