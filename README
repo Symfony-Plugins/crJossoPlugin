@@ -117,6 +117,7 @@ Example
 That's all
 
 ##TODO##
+* Do exception management inside filter when JossoAgent timeouts
 * Test timeout issues. Diferences between PHP and Java session management
 * Test accessing secured action and saving requesting URL so request is redirected on JOSSO login
   
