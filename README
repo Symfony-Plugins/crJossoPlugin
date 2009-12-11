@@ -52,6 +52,9 @@ Example
           security_check_module: crJossoAuth
           security_check_action: securityCheck
 
+        # Uncomment the following option if you want debug information in web toolbar
+          debug: true
+
 
 
   

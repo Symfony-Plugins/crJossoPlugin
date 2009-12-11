@@ -250,6 +250,13 @@ class JossoAgent  {
         $params = new stdClass;
         $params->ssoSessionId=$sessionId;
         $response=$sessionMgr->AccessSession($params);
+        if (sfConfig::get('app_cr_josso_plugin_debug',false))
+        {
+          $params = new stdClass;
+          $params->sessionId=$sessionId;
+          $session_info=$sessionMgr->getSession($params);
+          sfContext::getInstance()->getLogger()->info('{crJosso} Access session "'.var_export($session_info,true).'"');
+        }
         return $response->ssoSessionId;
     }catch(SoapFault $e){
       return null;
